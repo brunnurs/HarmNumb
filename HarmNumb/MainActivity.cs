@@ -11,7 +11,7 @@ using HarmNumb.Models;
 
 namespace HarmNumb
 {
-    [Activity(Label = "HarmNumb", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Harm Numb", MainLauncher = true, Icon = "@drawable/ic_launcher")]
     public class MainActivity : Activity
     {
         QuizController quizController;
@@ -22,6 +22,9 @@ namespace HarmNumb
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+
+            quizController = new QuizController();
+            quizController.Initialize();
 
             ConnectButtons();
         }
@@ -36,7 +39,20 @@ namespace HarmNumb
 
         private void DisplayExercise(NoteDegreeCorrelation nextExercise)
         {
-            throw new NotImplementedException();
+            var imgKey = FindViewById<ImageView>(Resource.Id.img_key);
+            var txtTimer = FindViewById<TextView>(Resource.Id.txt_timer);
+
+            switch (nextExercise.Key)
+            {
+                case "C":
+                    imgKey.SetImageResource(Resource.Drawable.keyC);
+                    //Only temporary
+                    txtTimer.Text = String.Format("({0})",nextExercise.Key);
+                    break;
+            }
+
+            var txtHarmNumber = FindViewById<TextView>(Resource.Id.txt_harm_number);
+            txtHarmNumber.Text = nextExercise.Degree.ToString();
         }
 
         private void ClickedButtonWithNumber(int btnNumber)
@@ -57,7 +73,8 @@ namespace HarmNumb
 
         private void ShowResult(bool result)
         {
-            new Toast(this).
+            string message = result ? "Gut gemacht!" : "Leider falsch";
+            Toast.MakeText(this, message, ToastLength.Long).Show();
         }
 
         private void ConnectButtons()

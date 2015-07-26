@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
+# Visual Studio 2012
 VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmNumb", "HarmNumb\HarmNumb.csproj", "{CAAAE677-6D5D-418E-BEA5-0C32D0C8D41A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmNumb.Test", "HarmNumb.Test\HarmNumb.Test.csproj", "{ED521944-539F-4AB7-AF8A-82B905B49E50}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HarmNumb.Lib", "HarmNumb.Lib\HarmNumb.Lib.shproj", "{C08136C1-652A-4DAD-A195-F476EF43F603}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
