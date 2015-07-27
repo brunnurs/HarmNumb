@@ -14,7 +14,8 @@ namespace HarmNumb.Controllers
 
         public void Initialize()
         {
-            this.allCorrelations = NoteDegreeCorrelationFactory.CreateCorrelationsForKey('C');
+            this.allCorrelations = NoteDegreeCorrelationFactory.GetCorrelationsForKey("C");
+            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("B"));
         }
 
         public NoteDegreeCorrelation GetNextExercise()
@@ -25,7 +26,7 @@ namespace HarmNumb.Controllers
             return currentExercise;
         }
 
-        public bool AnswerExercise(char note)
+        public bool AnswerExercise(string note)
         {
             return currentExercise.Note == note;
         }

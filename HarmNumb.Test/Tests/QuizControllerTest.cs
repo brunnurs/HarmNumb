@@ -44,9 +44,9 @@ namespace HarmNumb.Test
         public void AnswerExerciseIncorrectly()
         {
             //Arrange
-            NoteDegreeCorrelation exercise = controller.GetNextExercise();
-            char wrongResult = (char)((int)exercise.Note + 1);
+            controller.GetNextExercise();
             //Act
+            var wrongResult = "xyz";
             bool correct = controller.AnswerExercise(wrongResult);
 
             //Assert

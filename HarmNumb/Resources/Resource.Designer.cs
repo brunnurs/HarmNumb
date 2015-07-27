@@ -67,13 +67,16 @@ namespace HarmNumb
 			public const int ic_launcher = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int keyC = 2130837505;
+			public const int keyB = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int keyCes = 2130837506;
+			public const int keyC = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int keyGes = 2130837507;
+			public const int keyCes = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int keyGes = 2130837508;
 			
 			static Drawable()
 			{
@@ -88,26 +91,26 @@ namespace HarmNumb
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070003
-			public const int btn_nr_1 = 2131165187;
-			
 			// aapt resource value: 0x7f070004
-			public const int btn_nr_2 = 2131165188;
+			public const int btn_nr_1 = 2131165188;
 			
 			// aapt resource value: 0x7f070005
-			public const int btn_nr_3 = 2131165189;
+			public const int btn_nr_2 = 2131165189;
 			
 			// aapt resource value: 0x7f070006
-			public const int btn_nr_4 = 2131165190;
+			public const int btn_nr_3 = 2131165190;
 			
 			// aapt resource value: 0x7f070007
-			public const int btn_nr_5 = 2131165191;
+			public const int btn_nr_4 = 2131165191;
 			
 			// aapt resource value: 0x7f070008
-			public const int btn_nr_6 = 2131165192;
+			public const int btn_nr_5 = 2131165192;
 			
 			// aapt resource value: 0x7f070009
-			public const int btn_nr_7 = 2131165193;
+			public const int btn_nr_6 = 2131165193;
+			
+			// aapt resource value: 0x7f07000a
+			public const int btn_nr_7 = 2131165194;
 			
 			// aapt resource value: 0x7f070000
 			public const int img_key = 2131165184;
@@ -116,7 +119,10 @@ namespace HarmNumb
 			public const int txt_harm_number = 2131165186;
 			
 			// aapt resource value: 0x7f070001
-			public const int txt_timer = 2131165185;
+			public const int txt_key = 2131165185;
+			
+			// aapt resource value: 0x7f070003
+			public const int txt_timer = 2131165187;
 			
 			static Id()
 			{
