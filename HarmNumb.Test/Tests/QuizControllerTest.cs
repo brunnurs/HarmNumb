@@ -2,6 +2,7 @@
 using HarmNumb.Controllers;
 using NUnit.Framework;
 using HarmNumb.Models;
+using System.Threading;
 
 namespace HarmNumb.Test
 {
@@ -15,6 +16,10 @@ namespace HarmNumb.Test
         {
             controller = new QuizController();
             controller.InitializeAllKeys();
+
+            //Set the right values for this tests
+            controller.RepeatAfterXExercise = 3;
+            controller.TooSlowThreshold = 1;
         }
 
         [Test]
@@ -28,7 +33,7 @@ namespace HarmNumb.Test
         }
 
         [Test]
-        public void AnswerExerciseCorrectly()
+        public void DoExerciseCorrectly()
         {
             //Arrange
             NoteDegreeCorrelation exercise = controller.GetNextExercise();
@@ -41,7 +46,7 @@ namespace HarmNumb.Test
         }
 
         [Test]
-        public void AnswerExerciseIncorrectly()
+        public void DoExerciseIncorrectly()
         {
             //Arrange
             controller.GetNextExercise();
@@ -51,6 +56,62 @@ namespace HarmNumb.Test
 
             //Assert
             Assert.IsFalse(correct);
+        }
+
+        [Test]
+        public void RepeatFailedExercisesEveryNTime()
+        {
+            //Arrange
+            var firstExercise = AnswerNextExerciseWrong();
+            AnswerNextExerciseCorrectly();
+
+
+            //Act
+            var firstExerciseAgain = controller.GetNextExercise();
+
+            //Assert
+            Assert.AreEqual(firstExercise,firstExerciseAgain);
+        }
+
+        [Test]
+        public void TwoExercisesTooSlow()
+        {
+            //Arrange
+            AnswerNextExerciseCorrectly(1001);
+
+            var secondExercise = AnswerNextExerciseCorrectly(1010);
+
+
+            //Act
+            //The second exercise should be repeated, as it ist the slowest
+            var secondExerciseAgain = controller.GetNextExercise();
+
+            //Assert
+            Assert.AreEqual(secondExercise,secondExerciseAgain);
+        }
+
+        NoteDegreeCorrelation AnswerNextExerciseWrong(int waitBeforeAnswering = 0)
+        {
+            var exercise = controller.GetNextExercise();
+            if (waitBeforeAnswering > 0)
+            {
+                Thread.Sleep(waitBeforeAnswering);
+            }
+            controller.AnswerExercise("xyz");
+
+            return exercise;
+        }
+
+        NoteDegreeCorrelation AnswerNextExerciseCorrectly(int waitBeforeAnswering = 0)
+        {
+            var exercise = controller.GetNextExercise();
+            if (waitBeforeAnswering > 0)
+            {
+                Thread.Sleep(waitBeforeAnswering);
+            }
+            controller.AnswerExercise(exercise.Note);
+
+            return exercise;
         }
     }
 }
