@@ -23,9 +23,7 @@ namespace HarmNumb
         Button btnNr6;
         Button btnNr7;
 
-        Android.Graphics.Drawables.Drawable imgKeyC;
-        Android.Graphics.Drawables.Drawable imgKeyB;
-
+        KeyImagePathResolver keyImagePathResolver;
         QuizController quizController;
 
         protected override void OnCreate(Bundle bundle)
@@ -38,10 +36,9 @@ namespace HarmNumb
             quizController = new QuizController();
             quizController.InitializeAllKeys();
 
-            ConnectButtons();
+            keyImagePathResolver = new KeyImagePathResolver();
 
-            imgKeyC = Resources.GetDrawable(Resource.Drawable.keyC);
-            imgKeyB = Resources.GetDrawable(Resource.Drawable.keyB);
+            ConnectButtons();
         }
 
         protected override void OnStart()
@@ -59,17 +56,8 @@ namespace HarmNumb
             var imgKey = FindViewById<ImageView>(Resource.Id.img_key);
             var txtKey = FindViewById<TextView>(Resource.Id.txt_key);
 
-            switch (nextExercise.Key)
-            {
-                case "C":
-                    imgKey.SetImageDrawable(imgKeyC);
-                    txtKey.Text = String.Format("({0})",nextExercise.Key);
-                    break;
-                case "B":
-                    imgKey.SetImageDrawable(imgKeyB);
-                    txtKey.Text = String.Format("({0})",nextExercise.Key);
-                    break;
-            }
+            imgKey.SetImageDrawable(Resources.GetDrawable(keyImagePathResolver.GetKeyDrawableByKey(nextExercise.Key)));
+            txtKey.Text = String.Format("({0})",nextExercise.Key);
 
             var txtHarmNumber = FindViewById<TextView>(Resource.Id.txt_harm_number);
             txtHarmNumber.Text = nextExercise.Degree.ToString();
