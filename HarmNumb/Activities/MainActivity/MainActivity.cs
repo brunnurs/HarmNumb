@@ -24,6 +24,7 @@ namespace HarmNumb
         Button btnNr6;
         Button btnNr7;
 
+        QuizResultHandler quizResultHandler;
         KeyImagePathResolver keyImagePathResolver;
         QuizController quizController;
 
@@ -38,6 +39,7 @@ namespace HarmNumb
             quizController.InitializeAllKeys();
 
             keyImagePathResolver = new KeyImagePathResolver();
+            quizResultHandler = new QuizResultHandler(this);
 
             ConnectButtons();
         }
@@ -64,20 +66,15 @@ namespace HarmNumb
             txtHarmNumber.Text = nextExercise.Degree.ToString();
         }
 
-        private void ClickedButtonWithNumber(string btnText)
+        private async void ClickedButtonWithNumber(string btnText)
         {
             bool result = quizController.AnswerExercise(btnText);
-            ShowResult(result);
+
+            await quizResultHandler.ShowShortResultAsync(result);
 
             var nextExercise = quizController.GetNextExercise();
 
             DisplayExercise(nextExercise);
-        }
-
-        private void ShowResult(bool result)
-        {
-            string message = result ? "Gut gemacht!" : "Leider falsch";
-            Toast.MakeText(this, message, ToastLength.Long).Show();
         }
 
         private void ConnectButtons()
