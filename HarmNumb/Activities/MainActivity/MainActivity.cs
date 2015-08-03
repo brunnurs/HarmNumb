@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using HarmNumb.Controllers;
 using HarmNumb.Models;
 using System.Linq;
+using Android.Graphics;
 
 namespace HarmNumb
 {
