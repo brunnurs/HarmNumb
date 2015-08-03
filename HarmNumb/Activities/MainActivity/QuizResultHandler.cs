@@ -24,7 +24,7 @@ namespace HarmNumb
             Toast toast = new Toast(activity);
 
             ImageView imgView = new ImageView(activity); 
-            toast.View = imgView; 
+            toast.View = imgView;
 
             if(result)
                 imgView.SetImageResource(Resource.Drawable.ic_thumb_up_black); 

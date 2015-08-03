@@ -59,6 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="a" />
             <Button
@@ -66,6 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="b" />
             <Button
@@ -73,6 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="c" />
             <Button
@@ -80,6 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="d" />
             <Button
@@ -87,6 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="e" />
             <Button
@@ -94,6 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="f" />
             <Button
@@ -101,6 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="g" />
         </LinearLayout>

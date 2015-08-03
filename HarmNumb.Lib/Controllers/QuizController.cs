@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HarmNumb.Models;
 using System.Timers;
+using Android.Util;
 
 namespace HarmNumb.Controllers
 {
@@ -15,6 +16,14 @@ namespace HarmNumb.Controllers
 
         public int RepeatAfterXExercise { get; set; }
         public int TooSlowThreshold { get; set; }
+
+        public double SecondsSinceExerciseStarted
+        {
+            get
+            {
+                return Math.Round(DateTime.Now.Subtract(currentExerciseStartedAt).TotalSeconds,2);
+            }
+        }
 
         Random rnd;
 
@@ -54,7 +63,10 @@ namespace HarmNumb.Controllers
             if (counter % RepeatAfterXExercise == 0 && unsuccessfullOrSlowAttempts.Count > 0)
             {
                 //Repeat wrong answers
-                currentExercise = unsuccessfullOrSlowAttempts[unsuccessfullOrSlowAttempts.Keys.Max()];
+                int mostUrgentToRepeat = unsuccessfullOrSlowAttempts.Keys.Max();
+                currentExercise = unsuccessfullOrSlowAttempts[mostUrgentToRepeat];
+
+                unsuccessfullOrSlowAttempts.Remove(mostUrgentToRepeat);
             }
             else
             {
@@ -64,6 +76,13 @@ namespace HarmNumb.Controllers
 
             counter++;
             currentExerciseStartedAt = DateTime.Now;
+
+            Log.Debug("harm-numb", "Currently in queue:");
+            foreach (var kv in unsuccessfullOrSlowAttempts)
+            {
+                Log.Debug("harm-numb",kv.Key + "  " + kv.Value.Key+":"+kv.Value.Note);
+            }
+
             return currentExercise;
 
         }

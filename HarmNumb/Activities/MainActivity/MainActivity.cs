@@ -11,6 +11,7 @@ using System.Linq;
 using Android.Graphics;
 using Android.Support.V7.App;
 using Android.Widget;
+using System.Timers;
 
 namespace HarmNumb
 {
@@ -27,9 +28,16 @@ namespace HarmNumb
         Button btnNr6;
         Button btnNr7;
 
+        ImageView imgKey;
+        TextView txtHarmNumber;
+        TextView txtKey;
+        TextView txtExerciseTimer;
+
         QuizResultHandler quizResultHandler;
         KeyImagePathResolver keyImagePathResolver;
         QuizController quizController;
+
+        Timer exerciseTimer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -43,11 +51,12 @@ namespace HarmNumb
             keyImagePathResolver = new KeyImagePathResolver();
             quizResultHandler = new QuizResultHandler(this);
 
+            exerciseTimer = new Timer(100);
+            exerciseTimer.Elapsed += ExerciseTimer_Elapsed;
 
             AddToolbarLikeActionbar();
 
-
-            ConnectButtons();
+            ConnectUIElements();
         }
 
         protected override void OnResume()
@@ -57,6 +66,14 @@ namespace HarmNumb
 
             DisplayExercise(nextExercise);
         }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            exerciseTimer.Stop();
+        }
+
+
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -93,18 +110,26 @@ namespace HarmNumb
         {
             DisplayButtonLabels(nextExercise);
 
-            var imgKey = FindViewById<ImageView>(Resource.Id.img_key);
-            var txtKey = FindViewById<TextView>(Resource.Id.txt_key);
-
             imgKey.SetImageDrawable(Resources.GetDrawable(keyImagePathResolver.GetKeyDrawableByKey(nextExercise.Key)));
-            txtKey.Text = String.Format("({0})",nextExercise.Key);
+            txtKey.Text = String.Format("{0}",nextExercise.Key);
 
-            var txtHarmNumber = FindViewById<TextView>(Resource.Id.txt_harm_number);
             txtHarmNumber.Text = nextExercise.Degree.ToString();
+
+            exerciseTimer.Start();
+        }
+
+        void ExerciseTimer_Elapsed (object sender, ElapsedEventArgs e)
+        {
+            RunOnUiThread(() =>
+            {
+                txtExerciseTimer.Text = quizController.SecondsSinceExerciseStarted.ToString();
+            });
         }
 
         private async void ClickedButtonWithNumber(string btnText)
         {
+            exerciseTimer.Stop();
+
             bool result = quizController.AnswerExercise(btnText);
 
             await quizResultHandler.ShowShortResultAsync(result);
@@ -114,8 +139,14 @@ namespace HarmNumb
             DisplayExercise(nextExercise);
         }
 
-        private void ConnectButtons()
+        private void ConnectUIElements()
         {
+            imgKey = FindViewById<ImageView>(Resource.Id.img_key);
+
+            txtHarmNumber = FindViewById<TextView>(Resource.Id.txt_harm_number);
+            txtKey = FindViewById<TextView>(Resource.Id.txt_key);
+            txtExerciseTimer = FindViewById<TextView>(Resource.Id.txt_timer);
+
             btnNr1 = FindViewById<Button>(Resource.Id.btn_nr_1);
             btnNr1.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
 
