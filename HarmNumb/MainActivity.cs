@@ -36,7 +36,7 @@ namespace HarmNumb
             SetContentView(Resource.Layout.Main);
 
             quizController = new QuizController();
-            quizController.Initialize();
+            quizController.InitializeAllKeys();
 
             ConnectButtons();
 

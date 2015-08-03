@@ -14,7 +14,7 @@ namespace HarmNumb.Test
         public void Initialization()
         {
             controller = new QuizController();
-            controller.Initialize();
+            controller.InitializeAllKeys();
         }
 
         [Test]
