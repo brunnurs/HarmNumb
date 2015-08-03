@@ -1705,6 +1705,9 @@ namespace HarmNumb
 			// aapt resource value: 0x7f0b002e
 			public const int topPanel = 2131427374;
 			
+			// aapt resource value: 0x7f0b006d
+			public const int txt_answer_too_slow = 2131427437;
+			
 			// aapt resource value: 0x7f0b0052
 			public const int txt_harm_number = 2131427410;
 			
@@ -1716,9 +1719,6 @@ namespace HarmNumb
 			
 			// aapt resource value: 0x7f0b0053
 			public const int txt_timer = 2131427411;
-			
-			// aapt resource value: 0x7f0b006d
-			public const int txt_too_slow = 2131427437;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int up = 2131427336;

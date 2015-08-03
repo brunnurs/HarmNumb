@@ -18,7 +18,13 @@ namespace HarmNumb
     [Activity(Label = "Settings",ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]			
     public class SettingsActivity : AppCompatActivity
     {
+        public const string SPECIAL_KEY_ALL_KEYS = "All keys";
+
         Spinner keySpinner;
+        ArrayAdapter<string> keySpinnerAdapter;
+
+        EditText txtRepeatExercises;
+        EditText txtAnswerTooSlow;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -28,14 +34,49 @@ namespace HarmNumb
 
             SetUIHandlers();
 
-            keySpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, ComposeSpinnerValues());
+            keySpinnerAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, ComposeSpinnerValues());
+            keySpinner.Adapter = keySpinnerAdapter;
 
             AddToolbarLikeActionbar();
+
+            DisplayValuesByStoredPreferences();
+        }
+
+        void DisplayValuesByStoredPreferences()
+        {
+            ISharedPreferences preferences = GetSharedPreferences(MainActivity.PREFERENCE_FILE_NAME,FileCreationMode.Private);
+
+            string selectedKey = preferences.GetString("selected_key", SPECIAL_KEY_ALL_KEYS);
+            keySpinner.SetSelection(keySpinnerAdapter.GetPosition(selectedKey));
+
+            int repeatExercises = preferences.GetInt("repeat_exercises",3);
+            txtRepeatExercises.Text = repeatExercises.ToString();
+
+            int answerTooSlow = preferences.GetInt("answer_too_slow",2);
+            txtAnswerTooSlow.Text = answerTooSlow.ToString();
+        }
+
+        void SaveValuesToStoredPreferences()
+        {
+            ISharedPreferences preferences = GetSharedPreferences(MainActivity.PREFERENCE_FILE_NAME,FileCreationMode.Private);
+
+            var editor = preferences.Edit();
+
+            editor.PutString("selected_key",(string)keySpinner.SelectedItem);
+
+            editor.PutInt("repeat_exercises",int.Parse(txtRepeatExercises.Text));
+
+            editor.PutInt("answer_too_slow",int.Parse(txtAnswerTooSlow.Text));
+
+            editor.Commit();
         }
 
         void SetUIHandlers()
         {
             this.keySpinner = FindViewById<Spinner>(Resource.Id.sp_keys);
+            this.txtRepeatExercises = FindViewById<EditText>(Resource.Id.txt_repeat_exercises);
+            this.txtAnswerTooSlow = FindViewById<EditText>(Resource.Id.txt_answer_too_slow);
+
         }
 
         List<string> ComposeSpinnerValues()
@@ -47,7 +88,7 @@ namespace HarmNumb
                                         select k.Key);
 
             //and an entry for all keys
-            keysOnly.Add("All keys");
+                    keysOnly.Add(SPECIAL_KEY_ALL_KEYS);
 
             return keysOnly;
         }
@@ -63,6 +104,8 @@ namespace HarmNumb
         {
             if (item.ItemId == Resource.Id.action_save_configuration)
             {
+                SaveValuesToStoredPreferences();
+
                 SetResult(Result.Ok);
                 Finish();
 

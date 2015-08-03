@@ -17,6 +17,8 @@ namespace HarmNumb
     [Activity(Label = "Harm Numb",ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape, MainLauncher = true, Icon = "@drawable/ic_launcher")]
     public class MainActivity : AppCompatActivity
     {
+        public const string PREFERENCE_FILE_NAME = "HarmNumbPreferences" ;
+
         Button btnNr1;
         Button btnNr2;
         Button btnNr3;
@@ -36,8 +38,7 @@ namespace HarmNumb
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.main_activity);
 
-            quizController = new QuizController();
-            quizController.InitializeAllKeys();
+            InitializeQuizController();
 
             keyImagePathResolver = new KeyImagePathResolver();
             quizResultHandler = new QuizResultHandler(this);
@@ -49,12 +50,43 @@ namespace HarmNumb
             ConnectButtons();
         }
 
-        protected override void OnStart()
+        protected override void OnResume()
         {
             base.OnStart();
             var nextExercise = quizController.GetNextExercise();
 
             DisplayExercise(nextExercise);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (resultCode == Result.Ok) 
+            {
+                InitializeQuizController();
+            }
+        }
+
+        void InitializeQuizController()
+        {
+            ISharedPreferences preferences = GetSharedPreferences(MainActivity.PREFERENCE_FILE_NAME,FileCreationMode.Private);
+
+            quizController = new QuizController();
+
+            string selectedKey = preferences.GetString("selected_key", SettingsActivity.SPECIAL_KEY_ALL_KEYS);
+
+            if (selectedKey == SettingsActivity.SPECIAL_KEY_ALL_KEYS)
+            {
+                quizController.InitializeAllKeys();
+            }
+            else
+            {
+                quizController.InitializeKey(selectedKey);
+            }
+
+            quizController.RepeatAfterXExercise = preferences.GetInt("repeat_exercises",3);
+            quizController.TooSlowThreshold = preferences.GetInt("answer_too_slow",2);
         }
 
         private void DisplayExercise(NoteDegreeCorrelation nextExercise)

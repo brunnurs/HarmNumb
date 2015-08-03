@@ -53,10 +53,36 @@ namespace HarmNumb.Controllers
                 case "Gb":
                     CreateCorrelationsForKeyGb(correlations);
                     break;
+                default:
+                    throw new ArgumentException(key + " is not a valid key!");
 
             }
 
             return correlations;
+        }
+
+        public static List<NoteDegreeCorrelation> AllCorrelations
+        {
+            get
+            { 
+                var correlations = new List<NoteDegreeCorrelation>();
+                
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("C"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("G"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("D"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("A"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("E"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("B"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("F#"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("F"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Bb"));            
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Eb"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Ab"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Db"));
+                correlations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Gb"));
+
+                return correlations;
+            }
         }
 
         private static void CreateCorrelationsForKeyC(List<NoteDegreeCorrelation> correlations)

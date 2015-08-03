@@ -53,7 +53,7 @@
             android:text="Answer too Slow (Seconds)"
             android:textAllCaps="true" />
         <EditText
-            android:id="@+id/txt_too_slow"
+            android:id="@+id/txt_answer_too_slow"
             android:inputType="number"
             android:layout_below="@+id/too_slow_label"
             android:layout_marginTop="10dp"

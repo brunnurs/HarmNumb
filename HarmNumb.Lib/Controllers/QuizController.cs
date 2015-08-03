@@ -41,19 +41,12 @@ namespace HarmNumb.Controllers
 
         public void InitializeAllKeys()
         {
-            this.allCorrelations = NoteDegreeCorrelationFactory.GetCorrelationsForKey("C");
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("G"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("D"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("A"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("E"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("B"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("F#"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("F"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Bb"));            
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Eb"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Ab"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Db"));
-            this.allCorrelations.AddRange(NoteDegreeCorrelationFactory.GetCorrelationsForKey("Gb"));
+            this.allCorrelations = NoteDegreeCorrelationFactory.AllCorrelations;
+        }
+
+        public void InitializeKey(string selectedKey)
+        {
+            this.allCorrelations = NoteDegreeCorrelationFactory.GetCorrelationsForKey(selectedKey);
         }
 
         public NoteDegreeCorrelation GetNextExercise()
