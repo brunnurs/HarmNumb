@@ -33,7 +33,7 @@
             android:layout_below="@+id/sp_keys"
             android:layout_marginTop="20dp"
             android:textSize="12dip"
-            android:text="Repeat failed exercises every N times:"
+            android:text="Repeat failed or slow exercises every N times:"
             android:textAllCaps="true" />
         <EditText
             android:id="@+id/txt_repeat_exercises"
@@ -50,7 +50,7 @@
             android:layout_below="@+id/txt_repeat_exercises"
             android:layout_marginTop="20dp"
             android:textSize="12dip"
-            android:text="Answer too Slow (Seconds)"
+            android:text="Answer too slow (Seconds)"
             android:textAllCaps="true" />
         <EditText
             android:id="@+id/txt_answer_too_slow"
@@ -60,5 +60,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="3" />
+        <Switch
+            android:id="@+id/switch_note_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_answer_too_slow"
+            android:layout_marginTop="20dp"
+            android:text="Display note-buttons" />
     </RelativeLayout>
 </RelativeLayout>

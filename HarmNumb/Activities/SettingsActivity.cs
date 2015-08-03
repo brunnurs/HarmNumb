@@ -26,6 +26,8 @@ namespace HarmNumb
         EditText txtRepeatExercises;
         EditText txtAnswerTooSlow;
 
+        Switch displayNoteButtonsSwitch;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -54,6 +56,9 @@ namespace HarmNumb
 
             int answerTooSlow = preferences.GetInt("answer_too_slow",2);
             txtAnswerTooSlow.Text = answerTooSlow.ToString();
+
+            bool displayNoteButtons = preferences.GetBoolean("display_note_buttons",true);
+            displayNoteButtonsSwitch.Checked = displayNoteButtons;
         }
 
         void SaveValuesToStoredPreferences()
@@ -68,6 +73,8 @@ namespace HarmNumb
 
             editor.PutInt("answer_too_slow",int.Parse(txtAnswerTooSlow.Text));
 
+            editor.PutBoolean("display_note_buttons",displayNoteButtonsSwitch.Checked);
+
             editor.Commit();
         }
 
@@ -76,6 +83,7 @@ namespace HarmNumb
             this.keySpinner = FindViewById<Spinner>(Resource.Id.sp_keys);
             this.txtRepeatExercises = FindViewById<EditText>(Resource.Id.txt_repeat_exercises);
             this.txtAnswerTooSlow = FindViewById<EditText>(Resource.Id.txt_answer_too_slow);
+            this.displayNoteButtonsSwitch = FindViewById<Switch>(Resource.Id.switch_note_buttons);
 
         }
 

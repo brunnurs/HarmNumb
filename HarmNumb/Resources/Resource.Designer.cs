@@ -1441,11 +1441,11 @@ namespace HarmNumb
 			// aapt resource value: 0x7f0b0025
 			public const int action_mode_close_button = 2131427365;
 			
-			// aapt resource value: 0x7f0b006e
-			public const int action_open_settings = 2131427438;
-			
 			// aapt resource value: 0x7f0b006f
-			public const int action_save_configuration = 2131427439;
+			public const int action_open_settings = 2131427439;
+			
+			// aapt resource value: 0x7f0b0070
+			public const int action_save_configuration = 2131427440;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int activity_chooser_view_content = 2131427366;
@@ -1674,6 +1674,9 @@ namespace HarmNumb
 			
 			// aapt resource value: 0x7f0b004b
 			public const int submit_area = 2131427403;
+			
+			// aapt resource value: 0x7f0b006e
+			public const int switch_note_buttons = 2131427438;
 			
 			// aapt resource value: 0x7f0b000b
 			public const int tabMode = 2131427339;

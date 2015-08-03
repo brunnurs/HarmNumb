@@ -60,6 +60,12 @@ namespace HarmNumb.Controllers
 
         public NoteDegreeCorrelation GetNextExercise()
         {
+            Log.Debug("harm-numb", "Currently in queue:");
+            foreach (var kv in unsuccessfullOrSlowAttempts)
+            {
+                Log.Debug("harm-numb",kv.Key + "  " + kv.Value.Key+":"+kv.Value.Note);
+            }
+
             if (counter % RepeatAfterXExercise == 0 && unsuccessfullOrSlowAttempts.Count > 0)
             {
                 //Repeat wrong answers
@@ -77,20 +83,24 @@ namespace HarmNumb.Controllers
             counter++;
             currentExerciseStartedAt = DateTime.Now;
 
-            Log.Debug("harm-numb", "Currently in queue:");
-            foreach (var kv in unsuccessfullOrSlowAttempts)
-            {
-                Log.Debug("harm-numb",kv.Key + "  " + kv.Value.Key+":"+kv.Value.Note);
-            }
-
             return currentExercise;
 
+        }
+
+        public bool AnswerExercise(int harmNumber)
+        {
+            bool result = currentExercise.Degree == harmNumber;
+            return InternAnswerExercise(result);
         }
 
         public bool AnswerExercise(string note)
         {
             bool result = currentExercise.Note == note;
+            return InternAnswerExercise(result);
+        }
 
+        public bool InternAnswerExercise(bool result)
+        {
             TimeSpan timeNeededToAnswer = DateTime.Now.Subtract(currentExerciseStartedAt);
 
             if (!result)

@@ -33,6 +33,8 @@ namespace HarmNumb
         TextView txtKey;
         TextView txtExerciseTimer;
 
+        bool displayNoteButtons;
+
         QuizResultHandler quizResultHandler;
         KeyImagePathResolver keyImagePathResolver;
         QuizController quizController;
@@ -104,6 +106,8 @@ namespace HarmNumb
 
             quizController.RepeatAfterXExercise = preferences.GetInt("repeat_exercises",3);
             quizController.TooSlowThreshold = preferences.GetInt("answer_too_slow",2);
+
+            this.displayNoteButtons = preferences.GetBoolean("display_note_buttons",true);
         }
 
         private void DisplayExercise(NoteDegreeCorrelation nextExercise)
@@ -113,7 +117,14 @@ namespace HarmNumb
             imgKey.SetImageDrawable(Resources.GetDrawable(keyImagePathResolver.GetKeyDrawableByKey(nextExercise.Key)));
             txtKey.Text = String.Format("{0}",nextExercise.Key);
 
-            txtHarmNumber.Text = nextExercise.Degree.ToString();
+            if (displayNoteButtons)
+            {
+                txtHarmNumber.Text = nextExercise.Degree.ToString();
+            }
+            else
+            {
+                txtHarmNumber.Text = nextExercise.Note;
+            }
 
             exerciseTimer.Start();
         }
@@ -130,7 +141,15 @@ namespace HarmNumb
         {
             exerciseTimer.Stop();
 
-            bool result = quizController.AnswerExercise(btnText);
+            bool result;
+            if (displayNoteButtons)
+            {
+                result = quizController.AnswerExercise(btnText);
+            }
+            else
+            {
+                result = quizController.AnswerExercise(int.Parse(btnText));
+            }
 
             await quizResultHandler.ShowShortResultAsync(result);
 
@@ -173,13 +192,26 @@ namespace HarmNumb
         {
             List<NoteDegreeCorrelation> allCorrelationsForKey = NoteDegreeCorrelationFactory.GetCorrelationsForKey(nextExercise.Key);
 
-            btnNr1.Text = allCorrelationsForKey.First(c=>c.Degree == 1).Note;
-            btnNr2.Text = allCorrelationsForKey.First(c=>c.Degree == 2).Note;
-            btnNr3.Text = allCorrelationsForKey.First(c=>c.Degree == 3).Note;
-            btnNr4.Text = allCorrelationsForKey.First(c=>c.Degree == 4).Note;
-            btnNr5.Text = allCorrelationsForKey.First(c=>c.Degree == 5).Note;
-            btnNr6.Text = allCorrelationsForKey.First(c=>c.Degree == 6).Note;
-            btnNr7.Text = allCorrelationsForKey.First(c=>c.Degree == 7).Note;
+            if (displayNoteButtons)
+            {
+                btnNr1.Text = allCorrelationsForKey.First(c => c.Degree == 1).Note;
+                btnNr2.Text = allCorrelationsForKey.First(c => c.Degree == 2).Note;
+                btnNr3.Text = allCorrelationsForKey.First(c => c.Degree == 3).Note;
+                btnNr4.Text = allCorrelationsForKey.First(c => c.Degree == 4).Note;
+                btnNr5.Text = allCorrelationsForKey.First(c => c.Degree == 5).Note;
+                btnNr6.Text = allCorrelationsForKey.First(c => c.Degree == 6).Note;
+                btnNr7.Text = allCorrelationsForKey.First(c => c.Degree == 7).Note;
+            }
+            else
+            {
+                btnNr1.Text = "1";
+                btnNr2.Text = "2";
+                btnNr3.Text = "3";
+                btnNr4.Text = "4";
+                btnNr5.Text = "5";
+                btnNr6.Text = "6";
+                btnNr7.Text = "7";
+            }
 
         }
 
