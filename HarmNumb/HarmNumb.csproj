@@ -43,6 +43,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -50,14 +56,15 @@
     <Compile Include="Activities\MainActivity\MainActivity.cs" />
     <Compile Include="Activities\MainActivity\KeyImagePathResolver.cs" />
     <Compile Include="Activities\MainActivity\QuizResultHandler.cs" />
+    <Compile Include="Activities\SettingsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Styles.xml" />
     <AndroidResource Include="Resources\values\Colors.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\keyC.png" />
@@ -102,9 +109,15 @@
     <AndroidResource Include="Resources\drawable-xhdpi\keyFSharp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\keyG.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\keyGb.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\success.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_thumb_down_black.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_thumb_up_black.png" />
+    <AndroidResource Include="Resources\menu\main_activity_menu.axml" />
+    <AndroidResource Include="Resources\layout\settings_activity.axml" />
+    <AndroidResource Include="Resources\layout\main_activity.axml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_done_black.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings_black.png" />
+    <AndroidResource Include="Resources\menu\settings_activity_menu.axml" />
+    <AndroidResource Include="Resources\values-v21\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -125,5 +138,12 @@
   <ItemGroup>
     <Folder Include="Activities\" />
     <Folder Include="Activities\MainActivity\" />
+    <Folder Include="Resources\menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamandroidsupportv7appcompat">
+      <Version>22.2.0.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

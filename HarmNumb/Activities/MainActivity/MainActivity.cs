@@ -3,18 +3,19 @@ using Android.App;
 using Android.Content;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
 using HarmNumb.Controllers;
 using HarmNumb.Models;
 using System.Linq;
 using Android.Graphics;
+using Android.Support.V7.App;
+using Android.Widget;
 
 namespace HarmNumb
 {
     [Activity(Label = "Harm Numb",ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape, MainLauncher = true, Icon = "@drawable/ic_launcher")]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
         Button btnNr1;
         Button btnNr2;
@@ -33,13 +34,17 @@ namespace HarmNumb
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.main_activity);
 
             quizController = new QuizController();
             quizController.InitializeAllKeys();
 
             keyImagePathResolver = new KeyImagePathResolver();
             quizResultHandler = new QuizResultHandler(this);
+
+
+            AddToolbarLikeActionbar();
+
 
             ConnectButtons();
         }
@@ -113,6 +118,46 @@ namespace HarmNumb
             btnNr6.Text = allCorrelationsForKey.First(c=>c.Degree == 6).Note;
             btnNr7.Text = allCorrelationsForKey.First(c=>c.Degree == 7).Note;
 
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.main_activity_menu, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.action_open_settings)
+            {
+                Intent settingActivity = new Intent(this, typeof(SettingsActivity));
+                settingActivity.AddFlags(ActivityFlags.ClearTop);
+                //Start for result, so we can detect when user comes back from configuration-activity and take action.
+                StartActivityForResult(settingActivity, 443);
+
+                return true;
+            }
+            else
+            {
+                return base.OnOptionsItemSelected(item);
+            }
+        }
+
+        void AddToolbarLikeActionbar()
+        {
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Lollipop)
+            {
+                Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+            }
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+
+            if (toolbar != null)
+            {
+                SetSupportActionBar(toolbar);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+                SupportActionBar.SetHomeButtonEnabled(false);
+            }
         }
     }
 }

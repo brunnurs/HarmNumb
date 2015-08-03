@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <android.support.v7.widget.Toolbar xmlns:local="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/key_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dip"
+            android:text="Keys:"
+            android:textAllCaps="true" />
+        <Spinner
+            android:id="@+id/sp_keys"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/key_label"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/repeat_after_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sp_keys"
+            android:layout_marginTop="20dp"
+            android:textSize="12dip"
+            android:text="Repeat failed exercises every N times:"
+            android:textAllCaps="true" />
+        <EditText
+            android:id="@+id/txt_repeat_exercises"
+            android:inputType="number"
+            android:layout_below="@+id/repeat_after_label"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="3" />
+        <TextView
+            android:id="@+id/too_slow_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_repeat_exercises"
+            android:layout_marginTop="20dp"
+            android:textSize="12dip"
+            android:text="Answer too Slow (Seconds)"
+            android:textAllCaps="true" />
+        <EditText
+            android:id="@+id/txt_too_slow"
+            android:inputType="number"
+            android:layout_below="@+id/too_slow_label"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="3" />
+    </RelativeLayout>
+</RelativeLayout>

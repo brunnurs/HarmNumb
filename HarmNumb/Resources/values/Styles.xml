@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<style name="HarmNumbTheme" parent="android:Theme.Material.Light.DarkActionBar">
-	    <!--   your app branding color for the app bar -->
-	    <item name="android:colorPrimary">@color/harm_numb_color</item>
-	    <!--   darker variant for the status bar and contextual app bars -->
-	    <item name="android:colorPrimaryDark">@color/harm_numb_color_dark</item>
+	<style name="HarmNumbTheme" parent="HarmNumbTheme.Base">
+	</style>
+
+	<style name="HarmNumbTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+	  	<item name="windowNoTitle">true</item>
+    	<item name="windowActionBar">false</item>
+		<item name="colorPrimary">@color/harm_numb_color</item>
+		<item name="colorPrimaryDark">@color/harm_numb_color_dark</item>
+<!--		<item name="colorAccent">@color/unimodservicetheme_color_dark</item>
+		<item name="colorButtonNormal">@color/button_color</item>-->
 	</style>
 </resources>
