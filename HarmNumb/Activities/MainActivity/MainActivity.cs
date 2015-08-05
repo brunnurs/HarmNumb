@@ -20,6 +20,8 @@ namespace HarmNumb
     {
         public const string PREFERENCE_FILE_NAME = "HarmNumbPreferences" ;
 
+        List<Button> allButtons;
+
         Button btnNr1;
         Button btnNr2;
         Button btnNr3;
@@ -52,6 +54,7 @@ namespace HarmNumb
 
             keyImagePathResolver = new KeyImagePathResolver();
             quizResultHandler = new QuizResultHandler(this);
+            allButtons = new List<Button>();
 
             exerciseTimer = new Timer(100);
             exerciseTimer.Elapsed += ExerciseTimer_Elapsed;
@@ -163,56 +166,56 @@ namespace HarmNumb
             imgKey = FindViewById<ImageView>(Resource.Id.img_key);
 
             txtHarmNumber = FindViewById<TextView>(Resource.Id.txt_harm_number);
-            txtKey = FindViewById<TextView>(Resource.Id.txt_key);
+            txtKey = FindViewById<TextView>(Resource.Id.txt_key);   
             txtExerciseTimer = FindViewById<TextView>(Resource.Id.txt_timer);
 
             btnNr1 = FindViewById<Button>(Resource.Id.btn_nr_1);
             btnNr1.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr1);
 
             btnNr2 = FindViewById<Button>(Resource.Id.btn_nr_2);
             btnNr2.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr2);
 
             btnNr3 = FindViewById<Button>(Resource.Id.btn_nr_3);
             btnNr3.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr3);
 
             btnNr4 = FindViewById<Button>(Resource.Id.btn_nr_4);
             btnNr4.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr4);
 
             btnNr5 = FindViewById<Button>(Resource.Id.btn_nr_5);
             btnNr5.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr5);
 
             btnNr6 = FindViewById<Button>(Resource.Id.btn_nr_6);
             btnNr6.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr6);
 
             btnNr7 = FindViewById<Button>(Resource.Id.btn_nr_7);
             btnNr7.Click += (object sender, EventArgs e) => ClickedButtonWithNumber(((Button)sender).Text);
+            allButtons.Add(btnNr7);
         }
 
         void DisplayButtonLabels(NoteDegreeCorrelation nextExercise)
         {
             List<NoteDegreeCorrelation> allCorrelationsForKey = NoteDegreeCorrelationFactory.GetCorrelationsForKey(nextExercise.Key);
 
-            if (displayNoteButtons)
-            {
-                btnNr1.Text = allCorrelationsForKey.First(c => c.Degree == 1).Note;
-                btnNr2.Text = allCorrelationsForKey.First(c => c.Degree == 2).Note;
-                btnNr3.Text = allCorrelationsForKey.First(c => c.Degree == 3).Note;
-                btnNr4.Text = allCorrelationsForKey.First(c => c.Degree == 4).Note;
-                btnNr5.Text = allCorrelationsForKey.First(c => c.Degree == 5).Note;
-                btnNr6.Text = allCorrelationsForKey.First(c => c.Degree == 6).Note;
-                btnNr7.Text = allCorrelationsForKey.First(c => c.Degree == 7).Note;
-            }
-            else
-            {
-                btnNr1.Text = "1";
-                btnNr2.Text = "2";
-                btnNr3.Text = "3";
-                btnNr4.Text = "4";
-                btnNr5.Text = "5";
-                btnNr6.Text = "6";
-                btnNr7.Text = "7";
-            }
+            //Randomize, because otherwise it's too easy, as the degree is ordered.
+            allCorrelationsForKey = allCorrelationsForKey.RandomizeOrder();
 
+            for (int i = 0; i < 7; i++)
+            {
+                if (displayNoteButtons)
+                {
+                    allButtons[i].Text = allCorrelationsForKey[i].Note;
+                }
+                else
+                {
+                    allButtons[i].Text = (i + 1).ToString();
+                }
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

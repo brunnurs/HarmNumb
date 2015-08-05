@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using HarmNumb.Models;
 using System.Timers;
-using Android.Util;
 
 namespace HarmNumb.Controllers
 {
@@ -60,11 +59,11 @@ namespace HarmNumb.Controllers
 
         public NoteDegreeCorrelation GetNextExercise()
         {
-            Log.Debug("harm-numb", "Currently in queue:");
-            foreach (var kv in unsuccessfullOrSlowAttempts)
-            {
-                Log.Debug("harm-numb",kv.Key + "  " + kv.Value.Key+":"+kv.Value.Note);
-            }
+//            Log.Debug("harm-numb", "Currently in queue:");
+//            foreach (var kv in unsuccessfullOrSlowAttempts)
+//            {
+//                Log.Debug("harm-numb",kv.Key + "  " + kv.Value.Key+":"+kv.Value.Note);
+//            }
 
             if (counter % RepeatAfterXExercise == 0 && unsuccessfullOrSlowAttempts.Count > 0)
             {
